@@ -1,6 +1,6 @@
 # ======================== config.py ========================
 #test
-
+#merci
 import os
 
 # Chemin absolu du dossier du projet et du dossier d'assets
