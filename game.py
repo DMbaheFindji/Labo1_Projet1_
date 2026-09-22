@@ -2,6 +2,9 @@
 
 import pygame
 import random
+
+from pygame.constants import K_LEFT
+
 from config import (
     SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, JUMP_VELOCITY, SPRING_JUMP_VELOCITY,
     DOODLE_SPEED, DOODLE_WIDTH, DOODLE_HEIGHT, PLATFORM_WIDTH,
@@ -37,6 +40,9 @@ def move_doodle():
 
     # TODO : Gérez les déplacements gauche/droite et mettez à jour
     # simultanément la direction et l'image du Doodle.
+
+
+
 
 
 

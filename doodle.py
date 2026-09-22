@@ -2,6 +2,8 @@
 
 import os
 import pygame
+
+import config
 from config import ASSETS_DIR, DOODLE_SIZE, DOODLE_START_X, DOODLE_START_Y, LIVES, doodle_dict
 
 # Chargement et redimensionnement des images du Doodle (gauche et droite)
@@ -18,10 +20,17 @@ doodle_right_img = pygame.transform.scale(doodle_right_img, DOODLE_SIZE)
 # Vous devez utiliser les constantes DOODLE_START_X et DOODLE_START_Y
 # définies dans config.py. N'utilisez pas de nombres écrits directement.
 
+
+DOODLE_START_X = DOODLE_START_X
+DOODLE_START_Y = DOODLE_START_Y+ (config.DOODLE_HEIGHT*1/4)
+
+
+
+
 # Initialisation du dictionnaire global du Doodle
 doodle_dict.update({
-    "x": 1000,
-    "y": 1000,
+    "x": DOODLE_START_X,
+    "y": DOODLE_START_Y,
     "vel_y": 0.0,
     "direction": "right",  # "left" ou "right"
     "score": 0,
