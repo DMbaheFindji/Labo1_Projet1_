@@ -3,7 +3,7 @@
 import pygame
 import random
 
-from pygame.constants import K_LEFT
+from pygame.constants import K_LEFT, K_RIGHT
 
 from config import (
     SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, JUMP_VELOCITY, SPRING_JUMP_VELOCITY,
@@ -27,6 +27,7 @@ def apply_gravity():
 
     return
 
+
 # ===========================================================
 
 
@@ -41,18 +42,32 @@ def move_doodle():
     # TODO : Gérez les déplacements gauche/droite et mettez à jour
     # simultanément la direction et l'image du Doodle.
 
+    #Ici je test si l'utilisateur est en train d'appuyer sur le bouton gauche ou droite
+    if keys[K_LEFT]:
+        doodle_dict["direction"] = "left"
+        doodle_dict["image"] = doodle_left_img
+        doodle_dict["x"] -= DOODLE_SPEED  # on change la position du doodle on modifie vitesse
 
-
-
-
+    if keys[K_RIGHT]:
+        doodle_dict["direction"] = "right"
+        doodle_dict["image"] = doodle_right_img
+        doodle_dict["x"] += DOODLE_SPEED
 
     # TODO : Implémentez le Screen Wrap pour qu'une partie du Doodle puisse
     # sortir d'un côté avant de réapparaître de l'autre.
     # N'utilisez pas de dimensions numériques écrites directement.
 
+    #ici je teste si le doodle dpace la longueur de l'écran, alors je le remet à gauche et vice-verça
+    #j'ai pris -DOODLE_WIDTH parce que la position (0,0) on voit le personnage, mais il est coller au coin
+    #pour que on test si il dépasse côté gauche il faut que on fasse moins commeça son extrémité droite est juste avant le (0,0)
+    if doodle_dict["x"] > SCREEN_WIDTH:
+        doodle_dict["x"] = (-DOODLE_WIDTH)
 
+    if doodle_dict["x"] < (-DOODLE_WIDTH):
+        doodle_dict["x"] = SCREEN_WIDTH
 
     return
+
 
 # ===========================================================
 
@@ -68,6 +83,7 @@ def move_platforms():
     # leur vitesse lorsqu'elles atteignent un bord.
 
     return
+
 
 # ===========================================================
 
@@ -95,6 +111,7 @@ def check_platform_collisions():
 
     return
 
+
 # ===========================================================
 
 
@@ -114,6 +131,7 @@ def scroll_camera():
 
     return
 
+
 # ===========================================================
 
 
@@ -131,6 +149,7 @@ def generate_new_platforms():
     # choose_platform_type(...) avec les probabilités indiquées dans le README.
 
     return
+
 
 # ===========================================================
 
@@ -168,6 +187,6 @@ def rects_collide(r1, r2):
     Cette fonction est fournie et ne doit pas être modifiée.
     """
     return not (
-        r1[0] + r1[2] <= r2[0] or r1[0] >= r2[0] + r2[2] or
-        r1[1] + r1[3] <= r2[1] or r1[1] >= r2[1] + r2[3]
+            r1[0] + r1[2] <= r2[0] or r1[0] >= r2[0] + r2[2] or
+            r1[1] + r1[3] <= r2[1] or r1[1] >= r2[1] + r2[3]
     )
