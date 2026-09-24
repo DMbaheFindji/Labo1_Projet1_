@@ -46,6 +46,20 @@ def generate_initial_platforms():
     # ajouter la plateforme à PLATFORMS et calculer la hauteur de la suivante.
     # Les probabilités à utiliser sont données dans le README.
 
+    while current_y > 0:
+        platform_cree = create_platform(
+            random.randint(0, SCREEN_WIDTH - PLATFORM_WIDTH),
+            current_y,
+            choose_platform_type(0.65, 0.17, 0.10)
+        )
+        # il faut modifier la position du current_y sinon on aura une boucle infinie
+        current_y -= random.randint(MIN_PLATFORM_GAP, MAX_PLATFORM_GAP)
+        # Comment ça marche--> la position en y de cette plateforme est : la position de la plateforme précédente PLUS un nombre random entre (MIN_PLATFORM_GAP, MAX_PLATFORM_GAP)
+        # Et on fais -= car la position 0 en y est la partie supérieure de l'écran donc si on commence en bas pour monter il faut baisser la valeur de la position, c'est pour cela
+        # qu'on fait moins --> la valeur current_y se rapproche de 0 poru remplir tout l'écran du bas jusqu'au haut
+
+        PLATFORMS.append(platform_cree)
+
     return
     # ===========================================================
 

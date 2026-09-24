@@ -3,7 +3,7 @@
 import pygame
 import random
 
-from pygame.constants import K_LEFT, K_RIGHT
+from pygame.constants import K_LEFT, K_RIGHT, K_a, K_d
 
 from config import (
     SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, JUMP_VELOCITY, SPRING_JUMP_VELOCITY,
@@ -43,12 +43,12 @@ def move_doodle():
     # simultanément la direction et l'image du Doodle.
 
     #Ici je test si l'utilisateur est en train d'appuyer sur le bouton gauche ou droite
-    if keys[K_LEFT]:
+    if keys[K_LEFT] or keys[K_a]:
         doodle_dict["direction"] = "left"
         doodle_dict["image"] = doodle_left_img
         doodle_dict["x"] -= DOODLE_SPEED  # on change la position du doodle on modifie vitesse
 
-    if keys[K_RIGHT]:
+    if keys[K_RIGHT] or keys[K_d]:
         doodle_dict["direction"] = "right"
         doodle_dict["image"] = doodle_right_img
         doodle_dict["x"] += DOODLE_SPEED
