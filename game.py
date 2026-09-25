@@ -73,6 +73,7 @@ def move_doodle():
 
 
 # ======================== PARTIE 2.3 ========================
+
 def move_platforms():
     """
     Déplace horizontalement les plateformes mobiles ("blue").
@@ -81,6 +82,13 @@ def move_platforms():
     # TODO : Parcourez les plateformes et gérez le déplacement des plateformes
     # bleues encore actives. Elles doivent rester dans la fenêtre en inversant
     # leur vitesse lorsqu'elles atteignent un bord.
+    for i in PLATFORMS:
+        #verifie que les barres sont bien bleues il fallait aussi importer platforms dans le main 
+        if i["type"] == "blue" and i["active"]:
+            i["x"] +=i["vx"]
+#verifie que x est bien dans la zone du jeu si ce n'est pas le cas on fait l'inverse de sa vitesse
+            if i["x"]<=0 and i["x"] + i[width] >= SCREEN_WIDTH:
+                i["vx"]= -i["vx"]
 
     return
 

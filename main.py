@@ -1,8 +1,7 @@
 # ======================== main.py ========================
-
 import pygame
 import sys
-from config import FPS, doodle_dict
+from config import FPS, doodle_dict , PLATFORMS
 from window import draw_window, show_game_over_message, generate_initial_platforms
 from game import (
     apply_gravity, move_doodle, move_platforms,
