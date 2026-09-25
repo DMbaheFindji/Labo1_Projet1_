@@ -37,7 +37,9 @@ while running:
     # 3. Logique du jeu
     move_doodle()
     apply_gravity()
-    move_platforms()
+    move_platforms(
+        
+    )
     check_platform_collisions()
     scroll_camera()
     check_game_over()
