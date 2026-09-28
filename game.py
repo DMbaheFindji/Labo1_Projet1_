@@ -94,19 +94,79 @@ def move_platforms():
 
     return
 
+def apply_gravity():
+    # La gravité augmente la vitesse verticale vers le bas
+    doodle_dict["vel_y"] += GRAVITY
+    # La vitesse modifie la position verticale du Doodle
+    doodle_dict["y"] += doodle_dict["vel_y"]
+def rects_collide(r1, r2):
+    """Teste le chevauchement de deux rectangles (x, y, largeur, hauteur)."""
+    x1, y1, w1, h1 = r1
+    x2, y2, w2, h2 = r2
+    return (x1 < x2 + w2) and (x1 + w1 > x2) and (y1 < y2 + h2) and (y1 + h1 > y2)
 
 # ===========================================================
 
 
 # ======================== PARTIE 3.2 ========================
-def check_platform_collisions():
     """
     Détecte si le Doodle atterrit sur une plateforme.
     Le rebond ne se produit QUE lorsque le Doodle descend (vel_y > 0)
     et qu'il arrive sur le dessus d'une plateforme.
     """
     # TODO : Implémentez la détection d'un atterrissage.
-    #
+    #def rects_collide(r1, r2):
+
+def check_platform_collisions():
+    # Le Doodle ne peut atterrir que s'il est en phase de descente
+    if doodle_dict["vel_y"] <= 0:
+        return
+
+    # Rectangle actuel du Doodle (utilisation des variables globales DOODLE_WIDTH et DOODLE_HEIGHT)
+    doodle_rect = (
+        doodle_dict["x"],
+        doodle_dict["y"],
+        DOODLE_WIDTH,
+        DOODLE_HEIGHT
+    )
+    
+    # Position des pieds actuelle et précédente
+    doodle_feet_current = doodle_dict["y"] + DOODLE_HEIGHT
+    doodle_feet_previous = doodle_feet_current - doodle_dict["vel_y"]
+
+    for plat in PLATFORMS:
+        # Ignorer les plateformes inactives
+        if not plat.get("active", True):
+            continue
+
+        plat_rect = (plat["x"], plat["y"], plat["width"], plat["height"])
+
+        # Vérifier le chevauchement des rectangles
+        if rects_collide(doodle_rect, plat_rect):
+            plat_top = plat["y"]
+            
+            # Vérifier l'atterrissage par le dessus avec la tolérance de 14 pixels
+            is_landing = (
+                doodle_feet_previous <= plat_top + 14 and
+                doodle_feet_current >= plat_top
+            )
+
+            if is_landing:
+                plat_type = plat.get("type", "green")
+
+                # Appliquer le rebond selon le type de plateforme
+                if plat_type == "spring":
+                    doodle_dict["vel_y"] = SPRING_JUMP_VELOCITY
+                elif plat_type == "brown":
+                    doodle_dict["vel_y"] = JUMP_VELOCITY
+                    plat["active"] = False  # La plateforme marron disparaît/devient inactive
+                else:
+                    doodle_dict["vel_y"] = JUMP_VELOCITY
+
+                # Un seul rebond traité par appel
+                break
+    
+    return
     # Contraintes :
     # - aucun rebond pendant la montée ;
     # - ignorer les plateformes inactives ;
