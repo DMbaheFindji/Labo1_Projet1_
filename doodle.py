@@ -19,14 +19,6 @@ doodle_right_img = pygame.transform.scale(doodle_right_img, DOODLE_SIZE)
 #
 # Vous devez utiliser les constantes DOODLE_START_X et DOODLE_START_Y
 # définies dans config.py. N'utilisez pas de nombres écrits directement.
-
-
-DOODLE_START_X = DOODLE_START_X
-DOODLE_START_Y = DOODLE_START_Y+ (config.DOODLE_HEIGHT*1/4)
-
-
-
-
 # Initialisation du dictionnaire global du Doodle
 doodle_dict.update({
     "x": DOODLE_START_X,
@@ -38,5 +30,10 @@ doodle_dict.update({
     "lives": LIVES,
     "image": doodle_right_img
 })
+'''
+Le doodle était placé à x=1000 et y=1000, mais là on veut le placer
+directement à sa position initial.
+c'est pour ça qu'on a assigné x et y aux constanets DOODLE_START_X et DOODLE_START_Y
+'''
 
 # ===========================================================

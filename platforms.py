@@ -61,9 +61,6 @@ def create_platform(x, y, platform_type="green"):
     return platform
 
 
-# ===========================================================
-
-
 # ======================== PARTIE 2.2 ========================
 def choose_platform_type(green_probability, blue_probability, spring_probability):
     """
@@ -100,9 +97,6 @@ def choose_platform_type(green_probability, blue_probability, spring_probability
 
 
 # ===========================================================
-
-# Questions
-# ecq il faut enlever le =green a l'argument de platform_type dans la focntion crete platfrom
 
 
 '''

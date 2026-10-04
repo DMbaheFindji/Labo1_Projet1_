@@ -87,9 +87,18 @@ def move_platforms():
             # 3. Détection de collision avec les bords de l'écran
             # - Bord gauche : i["x"] <= 0
             # - Bord droit : i["x"] + i["width"] >= SCREEN_WIDTH
-            if i["x"] <= 0 or (i["x"] + i["width"]) >= SCREEN_WIDTH:
+            if i["x"] <= 0:
+                i["x"]=0#Cette ligne s'assure de recadrer la platform dans les extrémités de l'écran pour être sur qu'elle ne sorte jamais de l'écran
                 # Inversion du sens de la vitesse
                 i["vx"] = -i["vx"]
+
+
+            elif  (i["x"] + i["width"]) >= SCREEN_WIDTH:
+                i["x"]=SCREEN_WIDTH-i["width"]#Cette ligne s'assure de recadrer la platform dans les extrémités de l'écran pour être sur qu'elle ne sorte jamais de l'écran
+                # Inversion du sens de la vitesse
+                i["vx"] = -i["vx"]
+
+
 
     return
 
@@ -193,7 +202,8 @@ def scroll_camera():
 
     if doodle_dict["y"] < CAMERA_SCROLL_THRESHOLD:
 
-        # c'est la distance dotn tout le monde doit descendre pour que le jeux redevienne à jour
+        # c'est la distance dont tout le monde doit descendre pour que le jeux redevienne à jour
+
         distance = CAMERA_SCROLL_THRESHOLD - doodle_dict["y"]
 
         doodle_dict["y"] = CAMERA_SCROLL_THRESHOLD
